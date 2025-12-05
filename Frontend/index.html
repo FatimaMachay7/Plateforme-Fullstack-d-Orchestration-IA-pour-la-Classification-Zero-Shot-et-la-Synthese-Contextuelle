@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification de texte</title>
+
+    <style>
+        body { 
+            font-family: 'Times New Roman', Times, serif;
+            color: #ba0f0f;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;      /* centre horizontalement */
+            justify-content: center;  /* centre verticalement */
+            text-align: center;       /* centre le texte */
+        }
+
+        textarea { width: 400px; height: 100px; }
+        button { margin-top: 10px; padding: 5px 10px;color: rgb(0, 0, 0);font-family: 'Times New Roman', Times, serif; }
+        #result { margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+
+<body>
+
+    <h1>Classification de texte</h1>
+
+    <textarea id="text"></textarea><br>
+
+    <button onclick="classifyText()">Classify</button>
+
+    <div id="result"></div>
+
+    <script>
+        async function classifyText() {
+            const text = document.getElementById('text').value;
+
+            const response = await fetch('/classify', { 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text })
+            });
+
+            const data = await response.json();
+
+            document.getElementById('result').innerText =
+                `Catégorie: ${data.category}, Score: ${data.score.toFixed(2)}`;
+        }
+    </script>
+
+</body>
+</html>
