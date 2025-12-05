@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification de texte</title>
+    <style>
+        body { 
+            font-family: 'Times New Roman', Times, serif;
+            color: #333;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: #faf3ef;
+        }
+
+        h1 {
+            color: #8a2e0a;
+            margin-bottom: 30px;
+        }
+
+        textarea { 
+            width: 500px; 
+            height: 120px;
+            padding: 15px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #b14b0f;
+        }
+
+        button { 
+            margin-top: 20px;
+            padding: 12px 30px;
+            font-size: 20px;
+            color: white;
+            background: #8a2e0a;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #f5f106;
+        }
+
+        #result { 
+            margin-top: 30px; 
+            font-weight: bold;
+            font-size: 18px;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Classification de texte</h1>
+
+    <textarea id="text" rows="7" placeholder="Entrez votre texte ...."></textarea><br>
+
+    <button onclick="classifyText()">Classification</button>
+
+    <div id="result"></div>
+
+    <script>    
+    async function classifyText() {
+        const text = document.getElementById('text').value;
+
+        try {
+            const response = await fetch( "http://127.0.0.1:8000/classify", { 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text })
+            });
+            if (!response.ok) {
+                const error = await response.json();
+                document.getElementById('result').innerText = "Erreur : " + error.detail;
+                return;
+            }
+
+            const data = await response.json();
+
+            document.getElementById('result').innerText =
+                `Catégorie: ${data.category} et Score: ${data.score.toFixed(2)}`;
+        
+        } catch (err) {
+            document.getElementById('result').innerText = "Erreur de connexion serveur.";
+        }
+    }
+    </script>
+</body>
+</html>
