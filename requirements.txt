@@ -8,3 +8,4 @@ httpx
 pydantic
 psycopg2-binary
 jinja2
+google-generativeai

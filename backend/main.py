@@ -2,16 +2,21 @@ import os
 import requests 
 from fastapi import FastAPI, HTTPException, Request, Depends
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from database import get_db
 from models import classification
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
+import google.generativeai as genai
 
 load_dotenv()  # <-- obligatoire pour charger HF_TOKEN
 
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,6 +25,8 @@ app.add_middleware(
     allow_headers=["*"],
     allow_credentials=True
 )
+# Le modél Hugging Face
+
 
 API_URL = "https://router.huggingface.co/hf-inference/models/facebook/bart-large-mnli"
 HF_TOKEN = os.getenv("HF_TOKEN")
@@ -79,3 +86,19 @@ def classify_text(input_data: TextInput, db: Session = Depends(get_db)):
     db.refresh(entry)
 
     return {"category": category, "score": score}
+
+# Le Gemini API :
+# Charger la clé API depuis .env
+
+class Prompt(BaseModel):
+    text: str
+class Geminirequest(BaseModel):
+    prompt:str
+    
+API_KEY= os.getenv("GEMINI_API_KEY")
+genai.configure(api_key=API_KEY)
+model= genai.GenerativeModel("gemini-2.5-flash")
+@app.post("/gemini")
+def gemini_AI(data :Geminirequest):
+    response= model.generate_content(data.prompt)
+    return {"reponse": response.text}
