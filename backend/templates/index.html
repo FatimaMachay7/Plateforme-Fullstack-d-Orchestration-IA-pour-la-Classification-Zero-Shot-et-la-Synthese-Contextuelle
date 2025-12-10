@@ -2,22 +2,26 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon projet IA</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>AI Text Analyzer</title>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <h1>Mon projet IA</h1>
-    <h2>Classification de Texte</h2>
-    <textarea id="text" rows="7" placeholder="Entrez votre texte ...."></textarea><br>
-    <button onclick="classifyText()">Classification</button>
-    <div id="result"></div>
-    <hr>
-    
-    <h2>Gemini IA</h2>
-    <textarea id="geminiPrompt" rows="5" placeholder="Ecris la question ici ... "></textarea>
-    <button id="geminiBtn">Envoyer à Gemini</button>
-    <div id="geminiResponse"></div>
-    <script src="/static/script.js"></script>
+
+<div class="container">
+    <h1>Analyseur de texte - IA</h1>
+
+    <textarea id="inputText" placeholder="Écris ton texte ici..."></textarea>
+
+    <div class="buttons">
+        <button onclick="classifyText()">Classifier HuggingFace</button>
+        <button onclick="analyzeGemini()">Analyse Gemini</button>
+        <button onclick="classifyAndGemini()">Classifier et Analyse Gemini</button>
+    </div>
+
+    <h2>Résultat :</h2>
+    <pre id="resultBox">Aucun résultat pour le moment...</pre>
+</div>
+
+<script src="/static/js/script.js"></script>
 </body>
 </html>
