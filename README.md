@@ -118,5 +118,5 @@ Base PostgreSQL → port 5432
 # 10.  Auteurs :
 
 Développé par :
-MACHAY Fatima – Maroc – Projet académique / personnel 2025
-Projet réalisé dans le cadre d’un système IA de classification textuelle.
+- MACHAY Fatima – Maroc – Projet académique / personnel 2025
+- Projet réalisé dans le cadre d’un système IA de classification textuelle.
