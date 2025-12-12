@@ -60,7 +60,8 @@ def query_huggingface(text: str):
 @app.post("/classify")
 def classify_text(data: TextInput, db: Session = Depends(get_db)):
     result = query_huggingface(data.text)
-
+    
+    
     # Traitement robuste des différents formats de HF
     try:
         if isinstance(result, dict) and "labels" in result and "scores" in result:
