@@ -1,34 +1,35 @@
+
 services:
-backend: 
-  build: ./backend
-  container_name: backend
-  ports: 
-    - "8000:8000"
-  depends_on:
-    - db
-  environment:
-    - DATABASE_URL= "postgresql+psycopg2://postgres:12345678@localhost/classify"
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345678
+      POSTGRES_DB: classify
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
-env_file: ./backend/.env
-frontend: 
-  build: ./frontend
-  container_name: frontend
-  ports:
-    - "8000:80"
-  depends_on:
-    - backend
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://postgres:12345678@db/classify
+    env_file: ./backend/.env
 
-db:
-  image: postgres:15
-  container_name: postgres-db
-  restart: always
-  environment:
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: 12345678
-    POSTGRES_DB: classify
-volumes:
-  - pgdata://var/lib/postgresql/data
-ports:
-- "5432:5432"
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
 volumes:
   pgdata:
