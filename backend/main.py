@@ -1,10 +1,10 @@
 import os
 import requests
-from fastapi import FastAPI, HTTPException, Request, Depends
+from fastapi import FastAPI, HTTPException,  Depends, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from database import get_db
@@ -25,13 +25,13 @@ app.add_middleware(
     allow_credentials=True
 )
 
-# Static
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# Frontend
-@app.get("/")
-def serve_frontend():
-    return FileResponse(os.path.join("templates", "index.html"))
+templates = Jinja2Templates(directory="templates")
+
+@app.get("/", response_class=HTMLResponse)
+def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 # HuggingFace
 API_URL = "https://router.huggingface.co/hf-inference/models/facebook/bart-large-mnli"

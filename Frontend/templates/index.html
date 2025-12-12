@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification textuelle</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Classification de Texte</h1>
+        
+        <textarea id="monTexte" placeholder="Écrivez votre texte ici..."></textarea>
+        
+        <button id="btnClassifier">Classifier</button>
+        <button id="btnGemini">Analyser</button>
+        <button id="btnTout">Tout faire</button>
+        
+        <div id="chargement" style="display: none;">
+            <p>Chargement...</p>
+        </div>
+        
+        <div id="resultat" style="display: none;"></div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

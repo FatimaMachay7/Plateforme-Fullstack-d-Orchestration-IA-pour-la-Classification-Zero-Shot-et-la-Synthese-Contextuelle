@@ -1,0 +1,93 @@
+/* style.css - SIMPLE */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e7c3c3;
+    background-image: url("AFRICA.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: rgb(59, 0, 0);
+    padding: 30px;
+    border-radius: 10px;
+}
+
+h1 {
+    color: #f7f6f6;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    text-align: center;
+    font-size: 56px;
+}
+
+textarea {
+    width: 100%;
+    font-family: 'Times New Roman', Times, serif;
+    height: 150px;
+    padding: 10px;
+    font-size: 20px;
+    color: #440101;
+    border: 2px solid #2f0303;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#btnGemini {
+    background-color: #2196F3;
+}
+
+#btnGemini:hover {
+    background-color: #0b7dda;
+}
+
+#btnTout {
+    background-color: #ff9800;
+}
+
+#btnTout:hover {
+    background-color: #e68900;
+}
+
+#chargement {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-size: 18px;
+}
+
+#resultat {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border-left: 4px solid #4CAF50;
+}
+
+.info {
+    margin: 10px 0;
+    padding: 10px;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: rgb(231, 163, 17);
+    border-radius: 5px;
+}
